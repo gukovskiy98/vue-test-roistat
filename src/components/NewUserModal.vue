@@ -1,19 +1,27 @@
 <template>
-  <div class="modal__overlay" @click="onOverlayClick">
+  <div class="modal__overlay" @click="changeModalVisibility(false)">
     <form class="modal__body form" @click.stop @submit.prevent="onFormSubmit">
-      <h2>Добавление пользователя</h2>
-      <label for="name">Имя</label>
-      <input id="name" :value="userName" type="text" required>
-      <label for="phone">Телефон</label>
-      <input id="phone" :value="userPhone" type="text" required>
-      <label for="parent">Начальник</label>
-      <select id="parent">
-        <option disabled selected></option>
-        <option>1</option>
-        <option>2</option>
-      </select>
-      <button type="submit" class="modal__submit">Сохранить</button>
-      <button type="button" class="modal__close" @click="onCloseClick"></button>
+      <h2 class="form__title">Добавление пользователя</h2>
+      <label class="form__label">
+        <span class="form__label-value">Имя</span>
+        <input class="form__input" v-model="userName" type="text" required>
+      </label>
+
+      <label class="form__label">
+        <span class="form__label-value">Телефон</span>
+        <input class="form__input" v-model="userPhone" type="tel" required>
+      </label>
+      <label class="form__label">
+        <span class="form__label-value">Начальник</span>
+        <select class="form__select">
+          <option disabled selected></option>
+          <option>1</option>
+          <option>2</option>
+        </select>
+      </label>
+
+      <button type="submit" class="form__submit">Сохранить</button>
+      <button type="button" class="form__close" @click="changeModalVisibility(false)"></button>
     </form>
   </div>
 </template>
@@ -26,20 +34,14 @@ export default {
   data: function () {
     return {
       userName: '',
-      userPhone: ''
+      userPhone: '',
     };
   },
   methods: {
     ...mapMutations(["changeModalVisibility"]),
-    onOverlayClick() {
-      this.changeModalVisibility(false);
-    },
     onFormSubmit() {
       console.log('trying to submit');
     },
-    onCloseClick() {
-      this.changeModalVisibility(false);
-    }
   }
 }
 </script>
@@ -68,9 +70,36 @@ export default {
       padding: 20px;
       border-radius: 10px;
     }
+  }
+
+  .form {
+    &__title {
+      margin-bottom: 20px;
+    }
+
+    &__label {
+      display: flex;
+
+      + .form__label {
+        margin-top: 20px;
+      }
+    }
+
+    &__label-value {
+      flex: 0 0 100px;
+      margin-right: 10px;
+      overflow: hidden;
+    }
+
+    &__input, &__select {
+      flex: 1 0 auto;
+      padding: 3px 5px;
+    }
 
     &__submit {
-
+      margin-top: auto;
+      align-self: flex-end;
+      padding: 3px 5px;
     }
 
     &__close {

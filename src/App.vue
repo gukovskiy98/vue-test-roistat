@@ -5,21 +5,24 @@
         <NewUserModal v-if="isModalOpened" />
       </keep-alive>
     </transition>
+
+    <button class="add-new-btn" type="button" @click="changeModalVisibility(true)">Добавить</button>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 import NewUserModal from "@/components/NewUserModal";
 
 export default {
   name: "App",
   computed: {
-    ...mapGetters(['allUsers', 'isModalOpened'])
+    ...mapGetters(['allUsers', 'isModalOpened']),
   },
   methods: {
-    ...mapActions(["getUsersFromStorage"])
+    ...mapActions(["getUsersFromStorage"]),
+    ...mapMutations(['changeModalVisibility']),
   },
   mounted () {
     this.getUsersFromStorage();
@@ -30,27 +33,17 @@ export default {
 };
 </script>
 
-<style lang="scss">
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-}
-
+<style lang="scss" scoped>
 #app {
   margin: 0 auto;
   min-height: 100vh;
+  display: flex;
+  width: 800px;
+  align-items: center;
+  justify-content: center;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .2s;
-}
-
-.fade-enter, .fade-leave-to {
-  opacity: 0;
+.add-new-btn {
+  padding: 3px 5px;
 }
 </style>
