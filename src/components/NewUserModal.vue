@@ -30,7 +30,6 @@ import uniqid from 'uniqid';
 import {mapMutations, mapGetters} from 'vuex';
 
 export default {
-  name: 'NewUserModal',
   data: function() {
     return {
       userName: '',

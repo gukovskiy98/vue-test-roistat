@@ -15,7 +15,6 @@
 import UserItem from "@/components/UserItem";
 
 export default {
-  name: 'users-list',
   props: {
     users: {
       default() {
