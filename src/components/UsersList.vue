@@ -2,11 +2,11 @@
   <div class="users-list__wrapper">
     <span v-if="!users.length" class="users-list__empty-plug">Нет элементов для отображения</span>
     <template v-else>
-      <div v-if="showHeader" class="users-list__header">
-        <span class="users-list__header-left">Имя</span>
-        <span class="users-list__header-right">Телефон</span>
+      <div class="users-list__header">
+        <span class="users-list__header-left" @click.stop="toggleSort('name')">Имя</span>
+        <span class="users-list__header-right" @click.stop="toggleSort('phone')">Телефон</span>
       </div>
-      <UserItem v-for="user of users" :user="user" :key="user.id"/>
+      <UserItem v-for="user of sortedUsers" :user="user" :key="user.id"/>
     </template>
   </div>
 </template>
@@ -22,14 +22,32 @@ export default {
       },
       type: Array,
     },
-    showHeader: {
-      default: true,
-      type: Boolean,
-    },
+  },
+  computed: {
+    sortedUsers() {
+      return [...this.users].sort((a, b) => {
+        console.log(this, a[this.sort_field], b[this.sort_field], (b[this.sort_field] > a[this.sort_field]));
+
+        if (this.sort_direction === 'asc') {
+          return a[this.sort_field].localeCompare(b[this.sort_field])
+        }
+
+        return b[this.sort_field].localeCompare(a[this.sort_field])
+      })
+    }
   },
   data() {
     return {
-      isExpanded: true,
+      isExpanded: false,
+      sort_direction: 'asc',
+      sort_field: 'name',
+    }
+  },
+  methods: {
+    toggleSort(field) {
+      this.sort_field = field;
+
+      this.sort_direction = this.sort_direction === 'asc' ? 'desc' : 'asc';
     }
   },
   components: {
@@ -80,6 +98,7 @@ export default {
     display: flex;
     border-bottom: 2px solid #000000;
     position: relative;
+    cursor: pointer;
   }
 }
 </style>

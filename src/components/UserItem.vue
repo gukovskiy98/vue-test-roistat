@@ -8,7 +8,6 @@
 
     <UsersList v-if="user.children && user.children.length"
                v-show="isExpanded"
-               :show-header="false"
                :users="user.children"/>
   </div>
 </template>

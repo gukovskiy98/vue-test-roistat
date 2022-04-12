@@ -20,7 +20,7 @@
       </label>
 
       <button type="submit" class="form__submit">Сохранить</button>
-      <button type="button" class="form__close" @click="changeModalVisibility(false)"></button>
+      <button type="button" class="form__close" @click.stop="changeModalVisibility(false)"></button>
     </form>
   </div>
 </template>
