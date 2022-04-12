@@ -14,7 +14,7 @@
       <label class="form__label" v-if="allUsersList.length">
         <span class="form__label-value">Начальник</span>
         <select class="form__select" v-model="parentId">
-          <option selected value="">Без родителя</option>
+          <option selected value="">Без начальника</option>
           <option v-for="user of allUsersList" :value="user.id" :key="user.id">{{ user.name }}</option>
         </select>
       </label>

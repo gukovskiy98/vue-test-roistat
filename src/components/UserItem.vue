@@ -1,5 +1,5 @@
 <template>
-  <div class="user-item__wrapper" @click="isExpanded = !isExpanded">
+  <div class="user-item__wrapper" @click.stop="isExpanded = !isExpanded">
     <span v-if="user.children && user.children.length" class="user-item__expand">
       {{ isExpanded ? '-' : '+' }}
     </span>
